@@ -13,36 +13,31 @@ jobs:
     - uses: Brx86/build-aur-action@yay
       with:
         pkgname: ${{ env.PKGNAME }}
-    - name: Upload package and database
+    - name: Upload package
       env:
         PKGNAME: ${{ env.PKGNAME }}
       run: |
-       mkdir e5
-       rclone mount e5: $(pwd)/e5 --allow-other --allow-non-empty --vfs-cache-mode writes &
        PACKAGES=`ls ./${PKGNAME}`
        for package in $PACKAGES
        do
-        cp ./${PKGNAME}/${package} e5/pkgbuild/x86_64
+        rclone copy ./${PKGNAME}/${package} e5:/pkgbuild/x86_64
        done
-       killall rclone
-    - name: Update db for repo
-      uses: YidaozhanYa/update-db-for-repo@master
+    - uses: YidaozhanYa/update-db-for-repo@master
+      with:
+        tag: x86_64
     - name: Upload generated database
       run: |
        ls
        pwd
-       rclone mount e5: $(pwd)/e5 --allow-other --allow-non-empty --vfs-cache-mode writes &
-       cp yidaozhan.db e5/pkgbuild/x86_64
-       cp yidaozhan.db.tar.gz e5/pkgbuild/x86_64
-       cp yidaozhan.db.tar.gz.old e5/pkgbuild/x86_64
-       cp yidaozhan.files e5/pkgbuild/x86_64
-       cp yidaozhan.files.tar.gz e5/pkgbuild/x86_64
-       cp yidaozhan.files.tar.gz.old e5/pkgbuild/x86_64
-       killall rclone
+       rclone copy yidaozhan.db e5:/pkgbuild/x86_64
+       rclone copy yidaozhan.db.tar.gz e5:/pkgbuild/x86_64
+       rclone copy yidaozhan.db.tar.gz.old e5:/pkgbuild/x86_64
+       rclone copy yidaozhan.files e5:/pkgbuild/x86_64
+       rclone copy yidaozhan.files.tar.gz e5:/pkgbuild/x86_64
+       rclone copy yidaozhan.files.tar.gz.old e5:/pkgbuild/x86_64
 name: build-aur-one
 on:
   push:
     paths:
       - 'pkgname.txt'
-      - '.github/workflows/build-aur-one.yml'
   workflow_dispatch: null
