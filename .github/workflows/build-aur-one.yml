@@ -20,20 +20,21 @@ jobs:
        PACKAGES=`ls ./${PKGNAME}`
        for package in $PACKAGES
        do
-       rclone copy ./${PKGNAME}/${package} e5:/pkgbuild/x86_64
+        rclone copy ./${PKGNAME}/${package} e5:/pkgbuild/x86_64
        done
     - uses: YidaozhanYa/update-db-for-repo@master
       with:
         tag: x86_64
     - name: Upload generated database
       run: |
-       ls -R
-       rclone copy ./yidaozhan.db e5:/pkgbuild/x86_64
-       rclone copy ./yidaozhan.db.tar.gz e5:/pkgbuild/x86_64
-       rclone copy ./yidaozhan.db.tar.gz.old e5:/pkgbuild/x86_64
-       rclone copy ./yidaozhan.files e5:/pkgbuild/x86_64
-       rclone copy ./yidaozhan.files.tar.gz e5:/pkgbuild/x86_64
-       rclone copy ./yidaozhan.files.tar.gz.old e5:/pkgbuild/x86_64
+       ls
+       pwd
+       rclone copy yidaozhan.db e5:/pkgbuild/x86_64
+       rclone copy yidaozhan.db.tar.gz e5:/pkgbuild/x86_64
+       rclone copy yidaozhan.db.tar.gz.old e5:/pkgbuild/x86_64
+       rclone copy yidaozhan.files e5:/pkgbuild/x86_64
+       rclone copy yidaozhan.files.tar.gz e5:/pkgbuild/x86_64
+       rclone copy yidaozhan.files.tar.gz.old e5:/pkgbuild/x86_64
 name: build-aur-one
 on:
   push:
