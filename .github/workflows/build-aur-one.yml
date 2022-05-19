@@ -27,12 +27,12 @@ jobs:
         tag: x86_64
     - name: Upload generated database
       run: |
-       rclone copy ./yidaozhan.db e5:/pkgbuild/x86_64/
-       rclone copy ./yidaozhan.db.tar.gz e5:/pkgbuild/x86_64/
-       rclone copy ./yidaozhan.db.tar.gz.old e5:/pkgbuild/x86_64/
-       rclone copy ./yidaozhan.files e5:/pkgbuild/x86_64/
-       rclone copy ./yidaozhan.files.tar.gz e5:/pkgbuild/x86_64/
-       rclone copy ./yidaozhan.files.tar.gz.old e5:/pkgbuild/x86_64/
+       rclone copy ./yidaozhan.db e5:/pkgbuild/x86_64
+       rclone copy ./yidaozhan.db.tar.gz e5:/pkgbuild/x86_64
+       rclone copy ./yidaozhan.db.tar.gz.old e5:/pkgbuild/x86_64
+       rclone copy ./yidaozhan.files e5:/pkgbuild/x86_64
+       rclone copy ./yidaozhan.files.tar.gz e5:/pkgbuild/x86_64
+       rclone copy ./yidaozhan.files.tar.gz.old e5:/pkgbuild/x86_64
 name: build-aur-one
 on:
   push:
