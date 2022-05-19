@@ -1,0 +1,28 @@
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: Brx86/build-aur-action@yay
+      with:
+        pkgname: ${{ env.PKGNAME }} 
+    - uses: ncipollo/release-action@v1
+      with:
+        allowUpdates: true
+        artifacts: ./*/*.zst
+        tag: x86_64
+        token: ${{ secrets.GITHUB_TOKEN }}
+    - uses: Brx86/update-db-for-repo@master
+      with:
+        tag: x86_64
+    - uses: ncipollo/release-action@v1
+      with:
+        allowUpdates: true
+        artifacts: ./aya.*
+        tag: x86_64
+        token: ${{ secrets.GITHUB_TOKEN }}
+name: build-one
+on:
+  push:
+    paths:
+      - '**.txt'
+  workflow_dispatch: null
