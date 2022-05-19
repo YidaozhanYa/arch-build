@@ -29,6 +29,7 @@ jobs:
       run: |
        ls
        pwd
+       export GODEBUG=asyncpreemptoff=1 
        rclone copy yidaozhan.db e5:/pkgbuild/x86_64
        rclone copy yidaozhan.db.tar.gz e5:/pkgbuild/x86_64
        rclone copy yidaozhan.db.tar.gz.old e5:/pkgbuild/x86_64
