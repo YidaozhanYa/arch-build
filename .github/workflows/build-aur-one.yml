@@ -30,15 +30,18 @@ jobs:
        ls
        pwd
        export GODEBUG=asyncpreemptoff=1 
-       rclone copy yidaozhan.db e5:/pkgbuild/x86_64
-       rclone copy yidaozhan.db.tar.gz e5:/pkgbuild/x86_64
-       rclone copy yidaozhan.db.tar.gz.old e5:/pkgbuild/x86_64
-       rclone copy yidaozhan.files e5:/pkgbuild/x86_64
-       rclone copy yidaozhan.files.tar.gz e5:/pkgbuild/x86_64
-       rclone copy yidaozhan.files.tar.gz.old e5:/pkgbuild/x86_64
+       mkdir -p database
+       cp ./yidaozhan.* database
+       rclone copy ./database/yidaozhan.db e5:/pkgbuild/x86_64
+       rclone copy ./database/yidaozhan.db.tar.gz e5:/pkgbuild/x86_64
+       rclone copy ./database/yidaozhan.db.tar.gz.old e5:/pkgbuild/x86_64
+       rclone copy ./database/yidaozhan.files e5:/pkgbuild/x86_64
+       rclone copy ./database/yidaozhan.files.tar.gz e5:/pkgbuild/x86_64
+       rclone copy ./database/yidaozhan.files.tar.gz.old e5:/pkgbuild/x86_64
 name: build-aur-one
 on:
   push:
     paths:
       - 'pkgname.txt'
+      - '.github/workflows/build-aur-one.yml'
   workflow_dispatch: null
