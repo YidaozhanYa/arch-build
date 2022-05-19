@@ -17,7 +17,11 @@ jobs:
       env:
         PKGNAME: ${{ env.PKGNAME }}
       run: |
-       rclone copy ./${PKGNAME}/*.zst e5:/pkgbuild/x86_64/
+       PACKAGES=`ls ./${PKGNAME}`
+       for package in $PACKAGES
+       do
+       rclone copy ./${PKGNAME}/${package} e5:/pkgbuild/x86_64/${package}
+       done
     - uses: YidaozhanYa/update-db-for-repo@master
       with:
         tag: x86_64
