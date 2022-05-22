@@ -8,7 +8,7 @@ jobs:
         rclone_config: ${{ secrets.RCLONE_CONFIG }}
     - name: Get package name
       run: |
-       PKGNAME=`curl "https://raw.githubusercontent.com/YidaozhanYa/arch-build/main/pkgname.txt"`
+       PKGNAME=`curl "https://raw.githubusercontent.com/YidaozhanYa/arch-build/main/pkgname.txt" | head -1`
        echo "PKGNAME=${PKGNAME}" >> $GITHUB_ENV
     - uses: Brx86/build-aur-action@yay
       with:
