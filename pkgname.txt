@@ -1,1 +1,1 @@
-icalingua++-electron-git
+bilibili-bin
